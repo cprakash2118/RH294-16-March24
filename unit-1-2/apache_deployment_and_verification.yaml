@@ -1,0 +1,46 @@
+---
+- name: Deploy Apache server.
+  hosts: prod 
+  tasks:
+    - name: Install Apache & firewalld package.
+      ansible.builtin.yum:
+        name: 
+            - httpd 
+            - firewalld 
+        state: present 
+
+    - name: Start & Enable apache services.
+      ansible.builtin.service: 
+        name: "httpd"
+        state: started 
+        enabled: true 
+
+    - name: Start & Enable firewall services.
+      ansible.builtin.service: 
+        name: "firewalld"
+        state: started 
+        enabled: true 
+
+    - name: Adding firewalld rules - http
+      ansible.posix.firewalld:
+        immediate: yes
+        service: http
+        permanent: yes
+        state: enabled
+
+    - name: Deploy index.html 
+      ansible.builtin.copy: 
+         content: "This is my web server {{ inventory_hostname }}\n"   
+         dest: /var/www/html/index.html
+
+- name: Verify the deployment.
+  hosts: localhost
+  tasks: 
+      - name: URLVerification. 
+        ansible.builtin.uri: 
+           url: http://servera.lab.example.com 
+           return_content: yes
+           status_code: 200
+
+            
+
