@@ -1,0 +1,16 @@
+---
+- name: Register variable example.
+  hosts: dev
+  tasks:
+    - name: Shell task 
+      shell: systemctl status chronyd 
+      register: output
+      ignore_errors: yes
+
+    - name: Systemctl restart chronyd - output- task02
+      ansible.builtin.debug:
+         var: output
+
+    - name: Systemctl restart chronyd - output- task03
+      ansible.builtin.debug:
+         var: output.rc

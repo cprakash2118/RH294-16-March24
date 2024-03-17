@@ -1,0 +1,25 @@
+---
+- name: Stat module example 
+  hosts: dev 
+  vars:
+    remote_dir_location: /data
+  tasks:
+    - name: Check the dir "/data" 
+      ansible.builtin.stat: 
+        path: "{{remote_dir_location}}"
+      register: output
+
+    - name: Display this output
+      ansible.builtin.debug:
+         var: output
+
+    - name: Create dir 
+      ansible.builtin.file:
+        path: /data
+        state: directory
+        recurse: yes
+        owner: root
+        group: root
+      when: output.stat.exists == false 
+
+

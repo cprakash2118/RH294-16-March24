@@ -1,0 +1,36 @@
+---
+- name: Deploy Apache service.
+  hosts: prod 
+  vars_files:
+    - vars_file.yaml
+     #- /home/student/session02/RH294-16-March24/vars_file.yaml
+  tasks:
+    - name: "Install required packages - {{ package_list }}"
+      ansible.builtin.dnf: 
+         name: "{{ package_list }}"
+         state: present 
+
+    - name: Start and enable apache service.
+      ansible.builtin.service:
+         name: "{{ apache_service }}"
+         state: started
+         enabled: true 
+
+    - name: Start and enable firewalld service.
+      ansible.builtin.service:
+         name: "{{firewalld_service }}"
+         state: started
+         enabled: true 
+
+    - name: Adding firewalld rules - http
+      ansible.posix.firewalld:
+        immediate: yes
+        service: "{{ firewalld_rule }}"
+        permanent: yes
+        state: enabled
+ 
+    - name: Deploy index.html
+      ansible.builtin.copy:
+         content: "This is my web server {{ inventory_hostname }}\n"
+         dest: /var/www/html/index.html
+...

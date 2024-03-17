@@ -1,0 +1,24 @@
+---
+- name: Debug module example - 1st play
+  hosts: dev 
+  vars:
+    - var01: value1
+    - var02: value2
+  tasks:
+    - name: DIsplay output - Task-01
+      ansible.builtin.debug:
+         msg: " Value of var01 - {{ var01 }} ; value of var02 - {{ var02 }}"
+
+    - name: DIsplay output - Task-02 
+      vars:
+        var01: value3 
+      ansible.builtin.debug:
+         msg: " Value of var01 - {{ var01 }} ; value of var02 - {{ var02 }}"
+
+- name: Debug module example - 2nd play
+  hosts: dev 
+  tasks:
+    - name: DIsplay output - Task-03 - 2nd play
+      ansible.builtin.debug:
+         msg: " Value of var01 - {{ var01 }} ; value of var02 - {{ var02 }}"
+
