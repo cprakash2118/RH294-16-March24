@@ -1,0 +1,7 @@
+
+    - package_list:
+         - httpd
+         - firewalld 
+    - apache_service: httpd 
+    - firewalld_service: firewalld
+    - firewalld_rule: http
