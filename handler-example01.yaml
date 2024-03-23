@@ -1,0 +1,46 @@
+---
+- name: Handler example 
+  hosts: lb 
+  force_handlers: true 
+  tasks: 
+
+     - name: Shell script execution.
+       ansible.builtin.shell: systemctl status sshd 
+       register: sshd_outcome
+
+     - name: Display-01 - task01
+       ansible.builtin.debug: 
+          var: sshd_outcome  
+
+     - name: Display-02 - task02
+       ansible.builtin.debug: 
+          msg: "{{ sshd_outcome.rc }}"
+       changed_when: true
+       notify:
+          - handler01
+
+     - name: Display-03 - task03
+       ansible.builtin.debug: 
+          msg: "The value of RC={{ sshd_outcome.rc }}"
+       failed_when: true
+
+     - name: Display-04 - task04
+       ansible.builtin.debug: 
+          msg: "The value of RC={{ sshd_outcome.rc }}"
+       changed_when: true
+       notify:
+          - handler02
+
+     - name: Display05
+       ansible.builtin.debug: 
+          msg: "The value of RC={{ sshd_outcome.rc }}"
+       failed_when: true
+
+     
+  handlers:
+     - name: handler01
+       ansible.builtin.debug:
+          msg: "This is handler01"
+     - name: handler02
+       ansible.builtin.debug:
+          msg: "This is handler02"
