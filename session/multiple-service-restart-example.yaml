@@ -1,0 +1,33 @@
+---
+- name: Restart multile services.
+  hosts: all 
+  vars:
+     - package_list:
+         - httpd 
+         - firewalld 
+     - port_list:
+         - http
+         - https
+     - service_list:
+         - httpd 
+         - firewalld  
+  tasks:
+    - name: INstall packages.
+      ansible.builtin.dnf:
+         name: "{{ package_list }}"
+         state: present 
+
+    - name: Service enable and start 
+      ansible.builtin.service:
+         name: "{{ item }}"
+         state: started 
+         enabled: yes 
+      loop: "{{ service_list }}"
+
+
+    - name: Adding http/https ports to firewalld.
+      ansible.posix.firewalld:  
+        service: "{{ item }}"
+        permanent: yes
+        state: enabled
+      loop: "{{ port_list }}" 

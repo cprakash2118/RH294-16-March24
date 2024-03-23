@@ -1,0 +1,22 @@
+---
+- name: Create file/dir - 1st-play
+  hosts: lb 
+  tasks:
+    - name: Create a directory if it does not exist
+      ansible.builtin.file:
+        path: /var/www/html/data10/iso
+        state: directory
+        mode: '0755'
+        recurse: yes 
+ 
+    - name: Create a file if it dones not exist.
+      ansible.builtin.file:
+        path: /var/www/html/data10/iso/myfile.txt
+        state: touch 
+        mode: '0644'
+      
+    - name: Write to file - /var/www/html/data10/iso/myfile.txt
+      ansible.builtin.copy:
+        content: "This is my file \n"
+        dest: /var/www/html/data10/iso/myfile.txt
+
