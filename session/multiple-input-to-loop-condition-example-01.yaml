@@ -1,0 +1,19 @@
+---
+- name: Loop example.
+  hosts: all
+  vars:
+    - service_list:
+        - sshd 
+        - httpd
+        - rsyslog
+  tasks:
+     - name: "Multiple services {{ service_list }} restart."
+       ansible.builtin.service:
+         name: "{{ item }}"
+         state: restarted 
+       loop: "{{ service_list }}"
+       #when: false
+       when: 
+        #- inventory_hostname in groups['web'] 
+        - ansible_distribution: "RedHat"
+        - ansible_distribution_major_version: 8

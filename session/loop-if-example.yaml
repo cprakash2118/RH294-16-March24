@@ -1,0 +1,11 @@
+---
+- name: Data
+  hosts: web 
+  tasks: 
+     - name: Display values using debug module.  
+       ansible.builtin.debug:
+         msg: "{{ ansible.ansible_distribution  or  ansible.ansible_distribution_major.version }}"
+       #when: ansible_distribution: "RedHat" or  ansible_distribution_major version=8
+
+
+

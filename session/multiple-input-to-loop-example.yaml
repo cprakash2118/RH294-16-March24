@@ -1,0 +1,24 @@
+---
+- name: Loop example.
+  hosts: lb 
+  tasks:
+    - name: Multiple group creation - pass list to loop.
+      ansible.builtin.group:
+         name: "{{ item }}"
+         state: present 
+      loop: 
+         - group1
+         - group2
+         - group3
+
+    - name: Multiple input - pass dictionary to loop.
+      ansible.builtin.user:
+         name: "{{ item.name }}"
+         state: present 
+         group: "{{ item.group_name }}"
+         uid: "{{ item.uid_no }}"
+      loop:
+          - {name: user1 , group_name: group1 , uid_no: 5541}
+          - {name: user2 , group_name: group2 , uid_no: 5542}
+          - {name: user3 , group_name: group3 , uid_no: 5543}
+      

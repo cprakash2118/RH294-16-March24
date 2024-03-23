@@ -1,0 +1,12 @@
+---
+- group_list:
+    - group11
+    - group12
+    - group13
+
+- user_details:
+     - {name: user11 , group_name: group11 , uid_no: 5551}
+     - {name: user12 , group_name: group12 , uid_no: 5552}
+     - {name: user13 , group_name: group13 , uid_no: 5553}
+
+
