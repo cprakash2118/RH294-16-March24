@@ -1,0 +1,19 @@
+---
+- name: Discription about your 1st play.
+  hosts: web 
+  tasks:
+    - name: Discription about task - task-01 - Create group.
+      ansible.builtin.group:
+        name: unixadm 
+        state: present
+        gid: 33441
+
+    - name: Description about task - task-02 - Create user.
+      ansible.builtin.user:
+        name: unixmon 
+        comment: "Unix Team"
+        uid: 220021 
+        group: unixadm
+        password: "{{ 'redhat123' | password_hash('sha512') }}"  
+        #password: "{{ 'redhat123' | password_hash('sha256') }}"  
+        
