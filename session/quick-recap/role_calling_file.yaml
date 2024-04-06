@@ -1,0 +1,23 @@
+---
+- name: Calling the role 
+  hosts: lb
+  pre_tasks:
+       - name: Take pre-checks, and bring down the application/DB.
+         ansible.builtin.debug:
+             msg: "pre-checks has been taken. \n"
+
+  roles:
+     - apache 
+  tasks:
+    - name: Post build validation 
+      ansible.builtin.debug:
+        msg: " We are doing post build validation"
+
+  post_tasks:
+       - name: Take post-checks, and after validation  bring up the application/DB.
+         ansible.builtin.debug:
+             msg: "post checks has been taken. \n"
+
+  
+        
+        
