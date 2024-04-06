@@ -1,6 +1,0 @@
----
-# handlers file for apache
-- name: handler01
-  ansible.builtin.service:
-     state: restarted
-     name: "{{apache_package}}" 

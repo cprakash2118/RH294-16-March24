@@ -1,0 +1,20 @@
+---
+# tasks file for role1
+- name: Debug function display - Apache Package installation
+  ansible.builtin.debug:
+    msg: "Apache package installation"
+
+- name: Debug function display - Apache Service Start and Enable
+  ansible.builtin.debug:
+    msg: "Apache Service Start and Enable"
+
+- name: Debug function display - Deploy index.html
+  ansible.builtin.debug:
+    msg: "Deploying index.html"
+
+- name: Debug Function display - Adding handler for config changes
+  ansible.builtin.debug:
+    msg: "Handler called for config changes"
+  notify:
+    - handler01
+  changed_when: true

@@ -1,0 +1,6 @@
+---
+
+# handlers file for role1
+- name: handler01
+  ansible.builtin.debug:
+    msg: " Invoked handler01 for config changes"

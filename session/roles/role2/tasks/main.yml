@@ -1,0 +1,13 @@
+---
+# tasks file for role2
+- name: Display function Debug - FirewallD package installation 
+  ansible.builtin.debug:
+    msg: "Installing Firewalld Package"
+
+- name: Display function Debug - FirewallD service enable and start
+  ansible.builtin.debug:
+    msg: "Enabling and starting Firewalld service"
+
+- name: Permit traffic in default zone for http/https
+  ansible.builtin.debug:
+    msg: " Adding http/https ports to firewall"

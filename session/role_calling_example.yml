@@ -1,0 +1,20 @@
+---
+- name: Calling the role
+  hosts: lb
+  pre_tasks: 
+    - name: Taking prechecks and bringing down apps/db
+      ansible.builtin.debug:
+        msg: "Prechecks have been taken and apps/db brought down"
+
+  roles:
+    - role1
+  tasks:
+    - name: Tasks performed outside roles.
+      ansible.builtin.debug:
+        msg: "Tasks that has to be done after roles did their part"
+
+  post_tasks:
+    - name: Taking post checks and bringing up apps/db
+      ansible.builtin.debug:
+        msg: "Postchecks have been taken and bringing up apps and db"
+
