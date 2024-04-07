@@ -1,0 +1,43 @@
+---
+# tasks file for apache
+- name: "Install the latest version of Apache - {{apache_package_var }}"
+  ansible.builtin.dnf:
+    name: "{{apache_package_var }}"
+    state: latest
+
+- name: "Start/Enable service {{ apache_service_var }}, if not started/enabled"
+  ansible.builtin.service:
+    name: "{{ apache_service_var }}"
+    state: started
+    enabled: true 
+
+- name: Get stats of a file - dir present/not
+  ansible.builtin.stat:
+    path: "{{ doc_root }}"
+  register: dir_output
+
+- name: "Create {{ doc_root }} if not present."
+  ansible.builtin.file:
+    path: "{{ doc_root }}"
+    recurse: true 
+    state: directory
+      #mode: u+rwx,g-rwx,o-rwx
+    mode: u+rwx,g+rwx,o+rwx
+    setype: httpd_sys_content_t
+  when: dir_output.stat.exists == false 
+
+- name: Template a file to /opt/apache
+  ansible.builtin.template:
+    src: apache-config.j2
+    dest: /etc/httpd/conf.d/apache.conf
+  notify: 
+       - apache_restart 
+
+- name: Deploy application 
+  ansible.builtin.copy:
+     content: "This is my web server - welcome to {{ inventory_hostname }}\n"
+     dest: "{{ doc_root }}/index.html"
+
+- name: Selinux off 
+  ansible.builtin.shell: /sbin/setenforce 0
+

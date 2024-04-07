@@ -1,0 +1,11 @@
+---
+- name: Selinux role from collection
+  hosts: all 
+  tasks:
+   - name: Reapply SELinux role to complete changes
+     vars:
+       selinux_policy: targeted
+       selinux_state: enforcing
+     include_role:
+         name: redhat.rhel_system_roles.selinux
+
