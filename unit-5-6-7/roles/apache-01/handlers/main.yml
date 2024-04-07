@@ -1,0 +1,6 @@
+---
+# handlers file for apache
+- name: apache_restart
+  ansible.builtin.service:
+      name: "{{ apache_service_var }}"
+      state: restarted 

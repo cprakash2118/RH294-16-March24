@@ -1,0 +1,23 @@
+---
+- name: Calling role 
+  hosts: web 
+  force_handlers: true 
+  pre_tasks:
+     - name: pre-task 
+       ansible.builtin.debug:
+          msg: "Pre Task has been done \n"
+
+  roles:
+    # - apache 
+     - apache-01 
+  tasks:
+     - name: Task 
+       ansible.builtin.debug:
+          msg: "Task has been done \n"
+
+  post_tasks:
+     - name: podt Task 
+       ansible.builtin.debug:
+          msg: "Post Task has been done \n"
+
+

@@ -1,0 +1,5 @@
+---
+# vars file for firewalld
+firewalld_package_var: firewalld
+firewalld_service_var: firewalld
+apache_port: http                            
