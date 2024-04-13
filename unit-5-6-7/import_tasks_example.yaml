@@ -1,0 +1,15 @@
+---
+- name: Play-1st 
+  hosts: prod
+  tasks:
+    - name: Task-01 
+      ansible.builtin.debug: 
+          msg: "Display - task-01"
+
+    - name: Task-02 
+      #ansible.builtin.include_tasks: task-02_include.yaml 
+      ansible.builtin.import_tasks: mytask.yaml 
+
+    - name: Task-03
+      ansible.builtin.debug: 
+          msg: "Display - task-03"

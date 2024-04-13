@@ -1,0 +1,50 @@
+---
+- name: import_playbook-01.yaml
+  hosts: prod 
+  pre_tasks:
+      - name: import task in pre_task level 
+        import_tasks: mytask.yaml 
+
+      - name: Task-02 - pre_tasks  
+        ansible.builtin.debug:
+          msg: "Task-02 from pre_tasks level"
+
+      - name: include roles.
+        ansible.builtin.include_role: 
+            name: "{{ item }}"
+        loop: 
+             - apache-01
+             - apache-01
+             - apache-01
+             - apache-01
+             - apache-01
+
+      - name: Import roles.
+        ansible.builtin.import_role: 
+            name: apache-01
+
+
+  #roles:
+  #  - apache-01
+  tasks:
+      - name: including task on tasks level 
+        include_tasks: mytask.yaml
+####################
+      - name: Import roles.
+        ansible.builtin.import_role: 
+            name: apache-01
+
+      - name: include roles.
+        ansible.builtin.include_role: 
+            name: apache-01
+
+
+####################
+
+      - name: Task-02 
+        ansible.builtin.debug:
+          msg: "Task-02 from tasks level"
+  post_tasks: 
+      - name: including task on post_tasks level 
+        include_tasks: mytask.yaml
+...

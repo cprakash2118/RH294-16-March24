@@ -1,6 +1,6 @@
 ---
 - name: Selinux role from collection
-  hosts: all 
+  hosts: prod
   tasks:
    - name: Reapply SELinux role to complete changes
      vars:

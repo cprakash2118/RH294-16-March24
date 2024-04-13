@@ -1,0 +1,10 @@
+---
+- name: Import Playbook example
+  hosts: prod 
+  tasks:
+    - name: Tasks-01 - from play-01 
+      ansible.builtin.debug: 
+         msg: task-01 from plat-01 
+
+- name: Importing playbook
+  include_playbook: import_playbook-01.yaml

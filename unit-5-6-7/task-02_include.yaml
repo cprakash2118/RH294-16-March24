@@ -1,0 +1,7 @@
+- name: task-A - from include_tasks module.
+  ansible.builtin.debug: 
+ msg: " task-A - It's an example of include_tasks - dynamic nature"
+
+- name: task-B - from include_tasks module.
+  ansible.builtin.debug: 
+      msg: " task-B - It's an example of include_tasks - dynamic nature"
