@@ -1,12 +1,14 @@
-[web]
-server[a:d].lab.example.com
+[dev]
+servera.lab.example.com
+
+[test]
+serverb.lab.example.com
 
 [prod]
-serverc.lab.example.com 
+server[c:d].lab.example.com
 
-[dev]
-serverd.lab.example.com 
-
-[additional]
+[balancers]
 utility.lab.example.com
 
+[webservers:children]
+prod 

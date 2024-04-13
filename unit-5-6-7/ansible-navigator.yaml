@@ -5,4 +5,5 @@ ansible-navigator:
      pull:
        policy: missing 
   playbook-artifact:
-     enable: false 
+     #enable: false 
+     enable: true

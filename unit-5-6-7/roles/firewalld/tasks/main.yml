@@ -11,7 +11,8 @@
     state: restarted
 
 - name: Enable http port
-  ansible.posix.firewalld:
+  #ansible.posix.firewalld:
+  firewalld:
     immediate: yes 
     service: "{{ apache_port }}"
     permanent: yes

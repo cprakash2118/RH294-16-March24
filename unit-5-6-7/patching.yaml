@@ -1,0 +1,24 @@
+---
+- name: Patch Management 
+  hosts: prod 
+  tasks:
+
+
+    - name: Group install 
+      ansible.builtin.yum:
+            name: '@Server with GUI'
+            state: present
+
+    - name: Setup set default 
+      ansible.builtin.shell: /bin/systemctl set-default graphical.target
+
+    - name: Upgrade system
+      ansible.builtin.yum:
+            name: "*"
+            state: latest 
+
+    - name: Reboot a slow machine that might have lots of updates to apply
+      ansible.builtin.reboot:
+          reboot_timeout: 250
+ 
+        
